@@ -1,0 +1,27 @@
+* {
+  background: #0f0f1c;
+  border: 0;
+  font: "JetBrainsMono Nerd Font 14";
+  foreground: #ff79c6;
+  selected: #bd93f9;
+  active: #8be9fd;
+}
+window {
+  width: 500;
+  border: 2px;
+  border-color: #bd93f9;
+  border-radius: 20px;
+  background-color: #1e1e2e;
+}
+entry {
+  padding: 10;
+  background-color: #282a36;
+  text-color: #ff79c6;
+}
+listview {
+  lines: 10;
+}
+element selected {
+  background-color: #44475a;
+  text-color: #f1fa8c;
+}

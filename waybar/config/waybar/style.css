@@ -1,0 +1,186 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+  font-size: 14px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(10, 15, 30, 0.7);
+  border-radius: 0;
+  border-bottom: 1px solid rgba(80, 160, 255, 0.3);
+}
+
+tooltip {
+  background: rgba(10, 15, 30, 0.9);
+  border-radius: 6px;
+  border: 1px solid rgba(80, 160, 255, 0.2);
+}
+
+#workspaces,
+#hyprland-workspaces {
+  background: rgba(20, 25, 40, 0.7);
+  margin: 5px;
+  padding: 0 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(80, 160, 255, 0.3);
+}
+
+#workspaces button,
+#hyprland-workspaces button {
+  font-size: 16px;
+  color: rgba(130, 180, 230, 0.5);
+  margin: 3px;
+  padding: 0 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+#workspaces button.active,
+#hyprland-workspaces button.active {
+  color: rgba(160, 210, 255, 1);
+  text-shadow: 0 0 3px rgba(160, 210, 255, 0.5);
+}
+
+#workspaces button:hover,
+#hyprland-workspaces button:hover {
+  color: rgba(160, 210, 255, 0.8);
+  text-shadow: 0 0 3px rgba(160, 210, 255, 0.3);
+  box-shadow: none;
+  background: transparent;
+}
+
+#workspaces button.urgent,
+#hyprland-workspaces button.urgent {
+  color: rgba(255, 120, 150, 1);
+}
+
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#clock,
+#custom-weather,
+#custom-logout {
+  background: rgba(20, 25, 40, 0.7);
+  margin: 4px 3px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: #a0d0ff;
+  border: 1px solid rgba(80, 160, 255, 0.3);
+  font-size: 14px;
+}
+
+#cpu {
+  color: #80c0ff;
+}
+
+#memory {
+  color: #a0c0ff;
+}
+
+#network {
+  color: #70d0ff;
+}
+
+#network.disconnected {
+  color: #ff8090;
+}
+
+#pulseaudio {
+  color: #90c0ff;
+}
+
+#backlight {
+  color: #a0d0ff;
+}
+
+#battery {
+  color: #80c0ff;
+}
+
+#battery.charging, #battery.plugged {
+  color: #80ffb0;
+}
+
+#battery.warning:not(.charging) {
+  color: #ffb060;
+}
+
+#battery.critical:not(.charging) {
+  color: #ff8080;
+  animation: blink 0.7s infinite alternate;
+}
+
+@keyframes blink {
+  to {
+    background: rgba(255, 80, 100, 0.6);
+    color: #ffffff;
+  }
+}
+
+#clock {
+  color: #90d0ff;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+#custom-weather {
+  color: #60d0ff;
+}
+
+#custom-logout {
+  color: #ff9090;
+  margin-right: 5px;
+}
+
+/* When clicked or hovered */
+#cpu:hover, #memory:hover, #network:hover, 
+#pulseaudio:hover, #backlight:hover, #battery:hover,
+#custom-logout:hover {
+  background: rgba(30, 40, 60, 0.8);
+  border: 2px solid rgba(100, 180, 255, 0.5);
+  box-shadow: rgba(0, 40, 80, 0.3) 0 0 5px 2px;
+}
+
+/* Workspace styling */
+#custom-workspace1,
+#custom-workspace2,
+#custom-workspace3,
+#custom-workspace4,
+#custom-workspace5 {
+  background: rgba(30, 40, 60, 0.4);
+  color: rgba(130, 180, 230, 0.5);
+  font-size: 14px;
+  border-radius: 100%;
+  min-width: 26px;
+  min-height: 26px;
+  margin: 5px 4px;
+  padding: 0 5px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+/* Style active workspace based on Hyprland active workspace */
+#custom-workspace1.active,
+#custom-workspace2.active,
+#custom-workspace3.active,
+#custom-workspace4.active,
+#custom-workspace5.active {
+  background: rgba(80, 160, 255, 0.7);
+  color: #ffffff;
+  box-shadow: 0 0 5px rgba(80, 160, 255, 0.5);
+}
+
+#custom-workspace1:hover,
+#custom-workspace2:hover,
+#custom-workspace3:hover,
+#custom-workspace4:hover,
+#custom-workspace5:hover {
+  background: rgba(80, 160, 255, 0.4);
+  color: #ffffff;
+}
+

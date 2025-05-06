@@ -1,0 +1,26 @@
+🔥 Hyprland Keybinds Cheat Sheet
+
+📦 Apps
+󰣇 SUPER + Enter      → Terminal (kitty)
+ SUPER + E          → File Manager (thunar)
+󰍉 SUPER + Space     → App Launcher (wofi)
+🖼️ SUPER + S          → Screenshot Tool
+
+🪟 Window Management
+❌ SUPER + Q          → Close Window
+󰕰 SUPER + F          → Toggle Fullscreen
+ SUPER + V          → Toggle Floating
+↔️ SUPER + H/L/K/J    → Move Focus (←/→/↑/↓)
+
+🧠 Workspaces
+1️⃣ SUPER + [1-9]       → Switch to Workspace
+🚀 SUPER + Shift + [1-5] → Move Window to Workspace
+
+🆘 System & Extras
+📜 SUPER + M          → Show This Help Menu 💖
+
+🚧 Not Bound Yet
+🔒 SUPER + L          → (Lock not defined in config)
+📤 SUPER + W          → (Logout Menu not defined)
+🎧 SUPER + X/V        → (Mute/Power Menu not bound)
+󰍉 SUPER + R/T        → (App/Ani-cli not bound) 

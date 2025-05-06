@@ -1,0 +1,17 @@
+[global]
+    font = JetBrainsMono Nerd Font 10
+    frame_color = "#bd93f9"
+    separator_color = frame
+    padding = 10
+    horizontal_padding = 10
+    corner_radius = 10
+    transparency = 10
+[urgency_low]
+    background = "#1e1e2e"
+    foreground = "#ffffff"
+[urgency_normal]
+    background = "#1e1e2e"
+    foreground = "#ffffff"
+[urgency_critical]
+    background = "#ff5555"
+    foreground = "#ffffff"
