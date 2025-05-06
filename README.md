@@ -16,6 +16,7 @@ This repository contains my personal configuration files for Hyprland and relate
 - **picom/** - Picom compositor configuration
 - **tmux/** - Tmux terminal multiplexer configuration
 - **xorg/** - X.org configuration
+- **conky/** - Conky system monitor configuration
 
 ## Installation
 
