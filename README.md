@@ -38,7 +38,9 @@ ln -s ~/path/to/hyprland-dots/waybar/config/waybar ~/.config/waybar
 
 ## Screenshots
 
-[Screenshots will be added later]
+[desktop-view](assets/image.png)
+![desktop-view-2](assets/image1.png)
+![app-selector](assets/image3.png)
 
 ## License
 
