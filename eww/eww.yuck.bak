@@ -1,0 +1,112 @@
+;; Inline CSS styles directly into Eww
+(style "
+* {
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.sys-box {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.circle-box {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-glow {
+  color: rgba(0, 191, 255, 0.15);
+  background-color: transparent;
+}
+
+.circle {
+  color: #00bfff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.circle-text {
+  margin-top: -70px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00bfff;
+}
+
+.circle-label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #88c0d0;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #00bfff;
+}
+")
+
+;; Widget for circular meters
+(defwidget circular-meter [label value onclick]
+  (box :class "circle-box"
+    ;; Background Glow Ring (lower opacity, constant 100%)
+    (circular-progress
+      :value 100
+      :thickness 6
+      :class "circle-glow")
+
+    ;; Foreground Ring (real value)
+    (circular-progress
+      :value value
+      :thickness 6
+      :class "circle"
+      :onclick onclick)
+
+    ;; Percentage Text
+    (label :text (format "{}%" value) :class "circle-text")
+
+    ;; Label below
+    (label :text label :class "circle-label")))
+
+
+;; Main system info window
+(defwindow sysinfo
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 30 :width 200 :height 400)
+  (box :orientation "vertical" :spacing 20
+    (circular-meter "CPU" (get-cpu) "eww open cpu-detail")
+    (circular-meter "MEM" (get-mem) "eww open mem-detail")))
+
+;; CPU detail popup
+(defwindow cpu-detail
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 250 :width 500 :height 300)
+  (box :orientation "vertical"
+    (label :text "CPU Usage by Process" :class "title")
+    (label :text (get-cpu-tasks))))
+
+;; Memory detail popup
+(defwindow mem-detail
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 250 :width 500 :height 300)
+  (box :orientation "vertical"
+    (label :text "Memory Usage by Process" :class "title")
+    (label :text (get-mem-tasks))))
+
+(defpoll get-cpu :interval "2s" "top -bn1 | awk '/Cpu\\(s\\)/ {print int($2 + $4)}'")
+(defpoll get-mem :interval "2s" "free | awk '/Mem:/ {printf(\"%d\", $3/$2 * 100)}'")
+(defpoll get-cpu-tasks :interval "5s" "ps -eo pid,comm,%cpu --sort=-%cpu | head -n 10")
+(defpoll get-mem-tasks :interval "5s" "ps -eo pid,comm,%mem --sort=-%mem | head -n 10")
+

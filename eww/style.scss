@@ -1,0 +1,76 @@
+$cyber-blue: #00bfff;
+$cyber-cyan: #00ffe7;
+$bg: rgba(0, 0, 0, 0.2);
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.sys-box {
+  background-color: $bg;
+  border-radius: 10px;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+}
+
+.circle-box {
+  background-color: $bg;
+  border-radius: 20px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.circle-box:hover {
+  transform: scale(1.05);
+}
+
+.circle-glow {
+  color: rgba(0, 191, 255, 0.15);
+  background-color: transparent;
+  position: absolute;
+  filter: blur(5px);
+}
+
+.circle {
+  color: linear-gradient(90deg, $cyber-blue 0%, $cyber-cyan 100%);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.circle-text {
+  margin-top: -70px;
+  font-size: 20px;
+  font-weight: bold;
+  color: $cyber-blue;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.circle-box:hover .circle-text {
+  transform: scale(1.1);
+  color: lighten($cyber-blue, 10%);
+}
+
+.circle-label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #88c0d0;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: $cyber-blue;
+  text-shadow: 0 0 5px rgba(0, 191, 255, 0.3);
+}
+

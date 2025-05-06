@@ -1,0 +1,43 @@
+(defwidget circular-meter [label value onclick]
+  (box :class "circle-box"
+    (circular-progress
+      :value 100
+      :thickness 6
+      :class "circle-glow")
+    (circular-progress
+      :value value
+      :thickness 6
+      :class "circle"
+      :onclick onclick)
+    (label :text (format "{}%" value) :class "circle-text")
+    (label :text label :class "circle-label")))
+
+(defwindow sysinfo
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 30 :width 200 :height 400)
+  (box :orientation "vertical" :spacing 20
+    (circular-meter :label "CPU" :value (get-cpu) :onclick "eww open cpu-detail")
+    (circular-meter :label "MEM" :value (get-mem) :onclick "eww open mem-detail")))
+
+(defwindow cpu-detail
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 250 :width 500 :height 300)
+  (box :orientation "vertical"
+    (label :text "CPU Usage by Process" :class "title")
+    (label :text (get-cpu-tasks))))
+
+(defwindow mem-detail
+  :monitor 0
+  :anchor "top left"
+  :geometry (geometry :x 30 :y 250 :width 500 :height 300)
+  (box :orientation "vertical"
+    (label :text "Memory Usage by Process" :class "title")
+    (label :text (get-mem-tasks))))
+
+(defpoll get-cpu :interval "2s" "top -bn1 | awk '/Cpu\\(s\\)/ {print int($2 + $4)}'")
+(defpoll get-mem :interval "2s" "free | awk '/Mem:/ {printf(\"%d\", $3/$2 * 100)}'")
+(defpoll get-cpu-tasks :interval "5s" "ps -eo pid,comm,%cpu --sort=-%cpu | head -n 10")
+(defpoll get-mem-tasks :interval "5s" "ps -eo pid,comm,%mem --sort=-%mem | head -n 10")
+

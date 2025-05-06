@@ -1,0 +1,34 @@
+# Tofi configuration with blue theme
+# Matches the bluish wallpaper
+
+# Font settings
+font = "Sans"
+font-size = 24
+hint-font = true
+
+# Text colors
+text-color = #FFFFFF
+prompt-color = #89b4fa
+selection-color = #89b4fa
+selection-match-color = #89b4faee
+
+# Window appearance
+width = 1280
+height = 720
+background-color = #1E1E2E
+outline-width = 4
+outline-color = #313244
+border-width = 12
+border-color = #89b4fa
+corner-radius = 12
+padding-top = 8
+padding-bottom = 8
+padding-left = 8
+padding-right = 8
+
+# Window behavior
+scale = true
+anchor = center
+hide-cursor = false
+text-cursor = false
+history = true 

@@ -11,6 +11,7 @@ cat <<EOF | tofi --border-color="#89b4fa" --selection-color="#89b4fa" --corner-r
 🖼️ SUPER + S          → Screenshot Tool
 🖼️ SUPER + Shift + W  → Wallpaper Chooser
 🖼️ SUPER + Alt + W    → Random Wallpaper
+😀 SUPER + Alt + E    → Emoji Selector
 
 🪟 Window Management
 ❌ SUPER + Q          → Close Window
@@ -20,6 +21,17 @@ cat <<EOF | tofi --border-color="#89b4fa" --selection-color="#89b4fa" --corner-r
 ↔️ SUPER + L          → Move Focus Right
 ↔️ SUPER + I          → Move Focus Up
 ↔️ SUPER + K          → Move Focus Down
+
+📏 Resize Windows (Active/Floating)
+↕️ SUPER + Shift + I  → Resize Up
+↕️ SUPER + Shift + K  → Resize Down
+↔️ SUPER + Shift + J  → Resize Left
+↔️ SUPER + Shift + L  → Resize Right
+
+🖱️ Mouse Controls
+🔄 SUPER + Left Click  → Move Window
+📐 SUPER + Right Click → Resize Window
+📏 SUPER + Shift + Left Click → Resize Floating Window
 
 🧠 Workspaces
 1️⃣ SUPER + [1-9]       → Switch to Workspace
