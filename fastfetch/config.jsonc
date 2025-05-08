@@ -1,0 +1,42 @@
+{
+  "logo": {
+    "type": "kitty",
+    "source": "/home/pop/Pictures/waifu-error.gif"
+  },
+  "display": {
+    "separator": " --➤ ",
+    "color": {
+      "key": "magenta",
+      "value": "white"
+    }
+  },
+  "modules": [
+    {
+      "type": "title",
+      "key": "🌌 Welcome, Cyberspace Wanderer"
+    },
+
+    { "type": "separator", "text": "━━━━━━━━━━━━🌀 System Info ━━━━━━━━━━━━" },
+    { "type": "os", "key": "🌐 OS" },
+    { "type": "kernel", "key": "🧬 Kernel" },
+    { "type": "uptime", "key": "⏱️ Uptime" },
+    { "type": "packages", "key": "📦 Packages" },
+
+    { "type": "separator", "text": "━━━━━━━━━━━━🧠 Hardware ━━━━━━━━━━━━" },
+    { "type": "cpu", "key": "🧠 CPU" },
+    { "type": "gpu", "key": "🎮 GPU" },
+    { "type": "memory", "key": "📊 RAM" },
+
+    { "type": "separator", "text": "━━━━━━━━━━━━🖥️ Display ━━━━━━━━━━━━" },
+    { "type": "display", "key": "🖼️ Res" },
+    { "type": "wm", "key": "🪟 WM" },
+    { "type": "theme", "key": "🎨 Theme" },
+    { "type": "icons", "key": "🧸 Icons" },
+
+    { "type": "separator", "text": "━━━━━━━━━━━━💾 Storage ━━━━━━━━━━━━" },
+    { "type": "disk", "key": "💽 Disk" },
+
+    { "type": "separator", "text": "🚀 Stay based and overclocked 🚀" }
+  ]
+}
+
