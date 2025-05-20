@@ -65,6 +65,9 @@ require('packer').startup(function(use)
       require('luasnip.loaders.from_vscode').lazy_load()
   end }
   use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline' } }
+  use { 'windwp/nvim-autopairs', config = function()
+      require('nvim-autopairs').setup()
+  end }
 
   use { 'hrsh7th/vim-vsnip' } -- add this line
 
@@ -86,6 +89,7 @@ require('packer').startup(function(use)
 
   -- LSP and Debugging
   use 'neovim/nvim-lspconfig'
+  -- Use Mason plugins without inline config
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
   use { 'mfussenegger/nvim-dap' }
@@ -114,11 +118,40 @@ require('packer').startup(function(use)
       require('neoscroll').setup()
   end }
 
+  -- Which-key for keybinding preview
+  use { 'folke/which-key.nvim', config = function()
+      require('which-key').setup()
+  end }
+
   -- Automatically sync Packer if bootstrapped
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
+
+-- Mason setup
+local mason_ok, mason = pcall(require, "mason")
+if mason_ok then
+  mason.setup({
+    ui = {
+      check_outdated_packages_on_open = false,
+      border = "rounded",
+      icons = {
+        package_installed = "✓",
+        package_pending = "➜",
+        package_uninstalled = "✗"
+      }
+    }
+  })
+end
+
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if mason_lspconfig_ok then
+  mason_lspconfig.setup({
+    ensure_installed = { "lua_ls", "gopls", "pyright" },
+    automatic_installation = true,
+  })
+end
 
 -- General Settings
 vim.o.number = true               -- Enable line numbers
@@ -160,50 +193,47 @@ vim.opt.runtimepath:append("~/.config/nvim/lua/snippets")
 -- LSP and Autocompletion Configuration
 require("luasnip").setup({})
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets/" })
--- Enable Mason (optional) for easy LSP management
-require("mason").setup()
-require("mason-lspconfig").setup()
 
 -- Set up LSP for Go using gopls
 local lspconfig = require('lspconfig')
 
-lspconfig.gopls.setup {
-    on_attach = function(client, bufnr)
-        -- Keybindings for LSP functionality
-        local opts = { noremap = true, silent = true }
-        local buf_set_keymap = vim.api.nvim_buf_set_keymap
+-- Only proceed if lspconfig is available
+if lspconfig then
+  lspconfig.gopls.setup {
+      on_attach = function(client, bufnr)
+          -- Keybindings for LSP functionality
+          local opts = { noremap = true, silent = true }
+          local buf_set_keymap = vim.api.nvim_buf_set_keymap
 
-        buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    end,
+          buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+      end,
 
-    -- Capabilities for autocompletion
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
-}
+      -- Capabilities for autocompletion
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  }
 
+  -- Set up LSP for Python using pyright
+  lspconfig.pyright.setup {
+      on_attach = function(client, bufnr)
+          -- Keybindings for Python LSP functionality
+          local opts = { noremap = true, silent = true }
+          local buf_set_keymap = vim.api.nvim_buf_set_keymap
 
--- Set up LSP for Python using pyright
-local lspconfig = require('lspconfig')
+          buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+          buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+      end,
 
-lspconfig.pyright.setup {
-    on_attach = function(client, bufnr)
-        -- Keybindings for Python LSP functionality
-        local opts = { noremap = true, silent = true }
-        local buf_set_keymap = vim.api.nvim_buf_set_keymap
-
-        buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    end,
-
-    -- Capabilities for autocompletion
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
-}
+      -- Capabilities for autocompletion
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  }
+end
 
 
 -- Autocompletion Configuration
@@ -266,4 +296,76 @@ end
 
 -- Keybinding for transparency toggle
 vim.api.nvim_set_keymap('n', '<leader>tt', ':lua toggle_transparency()<CR>', { noremap = true, silent = true })
+
+-- Only load modules that exist and don't duplicate our configuration
+local function safe_require(module)
+    local ok, _ = pcall(require, module)
+    if not ok then
+        -- Module doesn't exist, silently continue
+        return false
+    end
+    return true
+end
+
+-- Load modules
+safe_require('plugins')
+safe_require('settings')
+safe_require('keymaps')
+-- Don't load lsp again as we've configured it inline
+-- safe_require('lsp')
+safe_require('snippets')
+
+-- Autocompletion Configuration
+local cmp = require'cmp'
+
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept suggestion with Enter
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }), --Keep Ctrl+y as an alternative
+        ['<C-Space>'] = cmp.mapping.complete(), -- Trigger completion
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    })
+}
+
+-- Snippet keybindings
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.require'luasnip'.expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'", {expr = true, silent = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "<cmd>lua require'luasnip'.jump(1)<Cr>", {silent = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "<cmd>lua require'luasnip'.jump(-1)<Cr>", {silent = true})
+
+-- Setup nvim-autopairs with cmp integration (protected with pcall)
+local ok, npairs = pcall(require, 'nvim-autopairs')
+if ok then
+    npairs.setup({
+        check_ts = true,
+        ts_config = {
+            lua = {'string'},
+            javascript = {'template_string'},
+        },
+        fast_wrap = {
+            map = '<M-e>',
+            chars = { '{', '[', '(', '"', "'" },
+            pattern = [=[[%'%"%>%]%)%}%,]]=],
+            end_key = '$',
+            keys = 'qwertyuiopzxcvbnmasdfghjkl',
+            check_comma = true,
+            highlight = 'Search',
+            highlight_grey='Comment'
+        },
+    })
+
+    -- Integration with cmp
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    cmp.event:on(
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
+    )
+end
 
