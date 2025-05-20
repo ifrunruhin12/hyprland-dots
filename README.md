@@ -42,6 +42,7 @@ ln -s ~/path/to/hyprland-dots/waybar/config/waybar ~/.config/waybar
 ![desktop-view-2](assets/image1.png)
 ![app-selector](assets/image3.png)
 ![neovim-look](assets/image2.png)
+![desktop-view-3](assets/image4.png)
 
 ### More screenshots will be added later!
 
